@@ -16,14 +16,22 @@
     from user
     where user_id = #{userId,jdbcType=INTEGER}
   </select>
+
+  <select id="selectByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user
+    where username = #{username,jdbcType=VARCHAR}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user
     where user_id = #{userId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="io.cjf.lx03.po.User">
-    insert into user (user_id, username, password, 
+  <insert id="insert" parameterType="io.cjf.lx03.po.User" useGeneratedKeys="true" keyProperty="userId">
+    insert into user ( username, password,
       salt)
-    values (#{userId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+    values ( #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
       #{salt,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="io.cjf.lx03.po.User">
